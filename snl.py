@@ -5,6 +5,12 @@ history =[]
 positions={}
 players=[]
 
+def coordinates(pos, grid):
+    row = (pos-1)//grid
+    col = (pos-1)%grid
+    if row % 2 == 1:
+        col = grid - 1 - col
+    return (col, row)
 
 def snake_ladder(grid, player):
     for i in range(1,player+1):
@@ -30,11 +36,13 @@ def snake_ladder(grid, player):
                 new_pos = old_pos
             if new_pos == grid**2:
                 winner = player
-               
+            coor = coordinates(new_pos, grid)
+            
             history.append({
                 'Player Number': player,
                 'Dice Roll': roll,
                 'Position': new_pos,
+                'Coordinates': coor,
                 'Winner Status': winner if winner else ''
             })
             
